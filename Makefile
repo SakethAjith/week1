@@ -1,5 +1,5 @@
 # Welcome to the world's worst Makefile.
-CC := gcc
+CC := g++
 
 WARNINGS_ARE_ERRORS := -Wall -Wextra -Werror
 COMPILER_OPTIMIZATIONS := -O3 -g
@@ -9,12 +9,12 @@ CFLAGS := $(WARNINGS_ARE_ERRORS) $(COMPILER_OPTIMIZATIONS)
 # Add any source files that you need to be compiled
 # for your linked list here.
 #
-LINKED_LIST_SOURCE_FILES := linked_list.c
+LINKED_LIST_SOURCE_FILES := linked_list.cpp
 LINKED_LIST_OBJECT_FILES := linked_list.o
 
 # Functional testing support
 #
-FUNCTIONAL_TEST_SOURCE_FILES := linked_list_test_program.c
+FUNCTIONAL_TEST_SOURCE_FILES := linked_list_test_program.cpp
 FUNCTIONAL_TEST_OBJECT_FILES := linked_list_test_program.o
 
 liblinked_list.so : $(LINKED_LIST_OBJECT_FILES)
@@ -29,7 +29,7 @@ run_functional_tests: linked_list_test_program
 run_functional_tests_gdb: linked_list_test_program
 	LD_LIBRARY_PATH=`pwd`:$LD_LIBRARY_PATH gdb ./linked_list_test_program
 
-%.o : %.c
+%.o : %.cpp
 	$(CC) -c $(CFLAGS) $^ -o $@
 
 clean:

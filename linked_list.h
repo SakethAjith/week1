@@ -5,6 +5,14 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <iterator>
+#include <algorithm>
+
+#include <iostream>
+#include <ostream>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 // Some rules for Pointer Wars 2025:
 // 0. Implement all functions in linked_list.c
 // 1. Feel free to add members to the structures, but please do not remove 
@@ -16,31 +24,82 @@
 //    test infrastructure a bit more flexility. See linked_list.c for
 //    declarations of those function pointers.
 
-// Declaration of the linked_list data structure.
-// Feel free to change as desired.
-//
-struct node;
-struct linked_list {
-    struct node * head;
-};
 
 // A node in the linked_list structure.
 // Feel free to change as desired.
 //
 struct node {
-    struct node * next;
-    unsigned int data;
+    node * next{NULL};
+    unsigned int data{0};
+
+
+    friend std::ostream& operator<<(std::ostream& out,const node& n){
+        out<<n.data;
+        return out;
+    }
 };
 
-// Very simple, not thread safe, iterator.
-//
+
+
 struct iterator {
+    
     struct linked_list * ll;
     struct node * current_node;
     size_t current_index;
     unsigned int data;
+
+    using iterator_category=std::forward_iterator_tag;
+    using difference_type=std::ptrdiff_t;
+    using value_type = node;
+    using reference = node&;
+    using pointer = node*;
+
+
+public:
+    iterator(pointer ptr=nullptr):current_node(ptr),current_index(0){
+        if(ptr!=NULL){
+            data=(ptr->data);
+        }
+    }
+
+    reference operator*() const {return *current_node;}
+    pointer operator->() const {return current_node;}
+
+ 
+    iterator operator++() {
+        if(current_node){
+            current_node=current_node->next;
+            data=current_node->data;
+            ++current_index;
+        }
+
+        return *this;
+    }
+
+    iterator operator++(int){
+        iterator temp=*this;
+        ++(*this);
+        return temp;
+    }
+
+    friend bool operator==(const iterator& a,const iterator& b){return a.current_node==b.current_node;}
+    friend bool operator!=(const iterator& a,const iterator& b){return a.current_node!=b.current_node;}
+
+
 };
 
+
+struct linked_list {
+    struct node * head;
+    struct node * tail;
+    linked_list()=default;
+    linked_list(node* n):head(n),tail(n){}
+    
+    //begin and end for iterator
+    ////end has NULL to enable iteration until the end
+    iterator begin(){return iterator(head);};
+    iterator end(){return iterator(NULL);}
+};
 // Creates a new linked_list.
 // PRECONDITION: Register malloc() and free() functions via the
 //               linked_list_register_malloc() and 
