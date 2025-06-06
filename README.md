@@ -3,6 +3,7 @@ Pointer Wars 2025: Linked List Edition Week 1
 ### My Changes
 - I have used `linked_list.cpp` for my implementation
 - added gitignore to ignore personal test files
+- No custom allocator implemenatation yet
 
 
 ### Instructions
