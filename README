@@ -1,5 +1,11 @@
 Pointer Wars 2025: Linked List Edition Week 1
 
+### My Changes
+- I have used `linked_list.cpp` for my implementation
+- added gitignore to ignore personal test files
+
+
+### Instructions
 The task for this week is to implement all of the functions declared 
 in linked_list.h and have them pass all of the functional tests 
 in the provided functional test suite. Once that is complete, send us an 
