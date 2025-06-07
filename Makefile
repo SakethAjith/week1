@@ -1,4 +1,4 @@
-# Welcome to the world's worst Makefile.
+# Welcome to the new world's worst Makefile.
 CC := g++
 
 WARNINGS_ARE_ERRORS := -Wall -Wextra -Werror
