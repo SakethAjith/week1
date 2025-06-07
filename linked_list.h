@@ -100,6 +100,8 @@ struct linked_list {
     iterator begin(){return iterator(head);};
     iterator end(){return iterator(NULL);}
 };
+
+void show(linked_list * ll);
 // Creates a new linked_list.
 // PRECONDITION: Register malloc() and free() functions via the
 //               linked_list_register_malloc() and 
